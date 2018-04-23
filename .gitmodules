@@ -1,0 +1,3 @@
+[submodule "RA-embedded-alcazar"]
+	path = RA-embedded-alcazar
+	url = https://github.com/ADiea/RA-embedded-alcazar.git
