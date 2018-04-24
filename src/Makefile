@@ -39,12 +39,12 @@ endif
 BSP_PATH = RA-embedded-alcazar/all/projectAlcazar
 
 #These are the flags or parameters we will pass to the compiler and assembler.
-CCFLAGS = -mcpu=cortex-m0 -mthumb -g -I$(BSP_PATH)/include/ -IprojectInclude
+CCFLAGS = -mcpu=cortex-m0 -mthumb -g -I$(BSP_PATH)/include/ -Iinclude
 ASFLAGS = -mcpu=cortex-m0 -mthumb -g 
 
 # List the object files involved in this project. They will be located in the out folder
 OBJS =	out/startup.o out/project.o out/gpio.o out/spi.o out/system.o out/timer.o \
-		out/delay.o out/interrupts.o out/max7219.o out/spiSoft.o out/uart.o out/adc.o
+		out/delay.o out/interrupts.o out/max7219.o out/spiSoft.o out/usart.o out/adc.o
 
 #A linker script file informs the linker of the memory layout of the architecture so that the linker can correctly create the final binary file. 
 #See the file for additional details
@@ -63,7 +63,7 @@ main.elf : $(OBJS)
 
 # The object file project.o depends on project.c.  project.c is compiled into project.o
 #$@ is the target, $< is the first prerequisite
-out/project.o: projectSrc/project.c
+out/project.o: src/project.c
 	$(CC) -c $(CCFLAGS) $< -o $@
 out/gpio.o: $(BSP_PATH)/src/sys/gpio.c
 	$(CC) -c $(CCFLAGS) $< -o $@
@@ -81,7 +81,7 @@ out/max7219.o: $(BSP_PATH)/src/sys/max7219.c
 	$(CC) -c $(CCFLAGS) $< -o $@
 out/spiSoft.o: $(BSP_PATH)/src/sys/spiSoft.c
 	$(CC) -c $(CCFLAGS) $< -o $@
-out/uart.o: $(BSP_PATH)/src/sys/uart.c
+out/usart.o: $(BSP_PATH)/src/sys/usart.c
 	$(CC) -c $(CCFLAGS) $< -o $@
 out/adc.o: $(BSP_PATH)/src/sys/adc.c
 	$(CC) -c $(CCFLAGS) $< -o $@
