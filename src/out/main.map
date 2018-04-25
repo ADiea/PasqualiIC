@@ -12,9 +12,9 @@ gPinSS              0x1               out/spiSoft.o
 Memory Configuration
 
 Name             Origin             Length             Attributes
-flash            0x0000000008000000 0x0000000000010000
-ram              0x0000000020000000 0x0000000000002000
-*default*        0x0000000000000000 0xffffffffffffffff
+flash            0x08000000         0x00010000
+ram              0x20000000         0x00002000
+*default*        0x00000000         0xffffffff
 
 Linker script and memory map
 
@@ -30,304 +30,277 @@ LOAD out/max7219.o
 LOAD out/spiSoft.o
 LOAD out/usart.o
 LOAD out/adc.o
-                0x0000000008000000                . = ORIGIN (flash)
+                0x08000000                . = ORIGIN (flash)
 
-.text           0x0000000008000000     0x103c
- .text          0x0000000008000000       0xc8 out/startup.o
-                0x0000000008000000                Vector_Table
-                0x0000000008000004                ResetVector
-                0x00000000080000c0                Reset_Handler
-                0x00000000080000c6                Default_Handler
- .text          0x00000000080000c8      0x4ec out/project.o
-                0x00000000080000c8                initBoardPWM
-                0x0000000008000114                initSegmentDisplayHardwareSPI
-                0x00000000080001b4                initSegmentDisplaySoftwareSPI
-                0x00000000080001e0                initPWMrgbLED
-                0x0000000008000238                initUSART2
-                0x0000000008000278                initADC
-                0x00000000080002a8                div
-                0x00000000080002d8                mod
-                0x0000000008000308                intToString
-                0x0000000008000350                updateDisplayBuffer
-                0x000000000800038c                projectInit
- .text          0x00000000080005b4      0x194 out/gpio.o
-                0x00000000080005b4                setPUPD
-                0x00000000080005dc                setPinMode
-                0x0000000008000628                writePin
-                0x0000000008000678                readPin
-                0x00000000080006b4                setPinAlternateFunction
- .text          0x0000000008000748       0x88 out/spi.o
-                0x0000000008000748                initSPIMaster
-                0x00000000080007a0                sendSPIByte
- .text          0x00000000080007d0       0xdc out/system.o
-                0x00000000080007d0                enableAHBPeripheral
-                0x0000000008000814                enableAPB1Peripheral
-                0x0000000008000858                enableAPB2Peripheral
-                0x000000000800089c                main
- .text          0x00000000080008ac      0x204 out/timer.o
-                0x00000000080008ac                setTimerCounter
-                0x00000000080008c8                setTimerPrescaler
-                0x00000000080008e0                stopTimer
-                0x00000000080008fc                startTimer
-                0x000000000800092c                getTimerValue
-                0x0000000008000940                setupPWMConfigurationOnboard
-                0x00000000080009c4                setupPWMConfiguration
-                0x0000000008000a64                setPWMDuty
- .text          0x0000000008000ab0       0x6c out/delay.o
-                0x0000000008000ab0                busyDelayMs
- .text          0x0000000008000b1c        0x0 out/interrupts.o
- .text          0x0000000008000b1c      0x248 out/max7219.o
-                0x0000000008000b1c                initMAX7219Display
-                0x0000000008000b48                sendMAX7219Data
-                0x0000000008000b84                putChar
-                0x0000000008000bbc                putString
-                0x0000000008000c54                setIntensity
-                0x0000000008000c74                enableDisplay
-                0x0000000008000c90                setScanLimit
-                0x0000000008000cb0                setDecodeMode
-                0x0000000008000ccc                clearDisplay
-                0x0000000008000d18                clearDisplayCustomFont
- .text          0x0000000008000d64      0x190 out/spiSoft.o
-                0x0000000008000d64                spiSoftSetup
-                0x0000000008000e34                spiSoftEnableSlave
-                0x0000000008000e6c                spiSoftSendByte
- .text          0x0000000008000ef4       0xb8 out/usart.o
-                0x0000000008000ef4                setupUSART
-                0x0000000008000f28                txUSARTch
-                0x0000000008000f6c                charReceivedUSART
- .text          0x0000000008000fac       0x90 out/adc.o
-                0x0000000008000fac                setupADC
-                0x0000000008000ffc                convertADC
+.text           0x08000000      0xd84
+ .text          0x08000000       0xc8 out/startup.o
+                0x08000000                Vector_Table
+                0x08000004                ResetVector
+                0x080000c0                Reset_Handler
+                0x080000c6                Default_Handler
+ .text          0x080000c8      0x1f0 out/project.o
+                0x080000c8                initSegmentDisplaySoftwareSPI
+                0x080000f4                initUSART2
+                0x08000134                initADC
+                0x08000162                div
+                0x08000192                mod
+                0x080001c2                intToString
+                0x0800020a                updateDisplayBuffer
+                0x08000244                projectInit
+ .text          0x080002b8      0x19e out/gpio.o
+                0x080002b8                setPUPD
+                0x080002e4                setPinMode
+                0x08000334                writePin
+                0x08000384                readPin
+                0x080003c0                setPinAlternateFunction
+ *fill*         0x08000456        0x2 
+ .text          0x08000458       0x88 out/spi.o
+                0x08000458                initSPIMaster
+                0x080004b0                sendSPIByte
+ .text          0x080004e0      0x118 out/system.o
+                0x080004e0                enableAHBPeripheral
+                0x08000538                enableAPB1Peripheral
+                0x08000590                enableAPB2Peripheral
+                0x080005e8                main
+ .text          0x080005f8      0x204 out/timer.o
+                0x080005f8                setTimerCounter
+                0x08000614                setTimerPrescaler
+                0x0800062c                stopTimer
+                0x08000646                startTimer
+                0x0800067a                getTimerValue
+                0x0800068e                setupPWMConfigurationOnboard
+                0x08000710                setupPWMConfiguration
+                0x080007b0                setPWMDuty
+ .text          0x080007fc       0x6c out/delay.o
+                0x080007fc                busyDelayMs
+ .text          0x08000868        0x0 out/interrupts.o
+ .text          0x08000868      0x248 out/max7219.o
+                0x08000868                initMAX7219Display
+                0x08000894                sendMAX7219Data
+                0x080008ce                putChar
+                0x08000904                putString
+                0x0800099c                setIntensity
+                0x080009bc                enableDisplay
+                0x080009dc                setScanLimit
+                0x080009fc                setDecodeMode
+                0x08000a1c                clearDisplay
+                0x08000a66                clearDisplayCustomFont
+ .text          0x08000ab0      0x18c out/spiSoft.o
+                0x08000ab0                spiSoftSetup
+                0x08000b7c                spiSoftEnableSlave
+                0x08000bb4                spiSoftSendByte
+ .text          0x08000c3c       0xb8 out/usart.o
+                0x08000c3c                setupUSART
+                0x08000c70                txUSARTch
+                0x08000cb4                charReceivedUSART
+ .text          0x08000cf4       0x90 out/adc.o
+                0x08000cf4                setupADC
+                0x08000d44                convertADC
 
-.rodata         0x000000000800103c       0x73
- .rodata        0x000000000800103c       0x18 out/project.o
- .rodata        0x0000000008001054       0x5b out/max7219.o
-                0x0000000008001054                MAX7219_font
+.rodata         0x08000d84       0x5b
+ .rodata        0x08000d84       0x5b out/max7219.o
+                0x08000d84                MAX7219_font
 
-.glue_7         0x00000000080010b0        0x0
- .glue_7        0x00000000080010b0        0x0 linker stubs
+.glue_7         0x08000de0        0x0
+ .glue_7        0x08000de0        0x0 linker stubs
 
-.glue_7t        0x00000000080010b0        0x0
- .glue_7t       0x00000000080010b0        0x0 linker stubs
+.glue_7t        0x08000de0        0x0
+ .glue_7t       0x08000de0        0x0 linker stubs
 
-.vfp11_veneer   0x00000000080010b0        0x0
- .vfp11_veneer  0x00000000080010b0        0x0 linker stubs
+.vfp11_veneer   0x08000de0        0x0
+ .vfp11_veneer  0x08000de0        0x0 linker stubs
 
-.v4_bx          0x00000000080010b0        0x0
- .v4_bx         0x00000000080010b0        0x0 linker stubs
+.v4_bx          0x08000de0        0x0
+ .v4_bx         0x08000de0        0x0 linker stubs
 
-.iplt           0x00000000080010b0        0x0
- .iplt          0x00000000080010b0        0x0 out/startup.o
+.iplt           0x08000de0        0x0
+ .iplt          0x08000de0        0x0 out/startup.o
 
-.rel.dyn        0x00000000080010b0        0x0
- .rel.iplt      0x00000000080010b0        0x0 out/startup.o
-                0x0000000020000000                . = ORIGIN (ram)
+.rel.dyn        0x08000de0        0x0
+ .rel.iplt      0x08000de0        0x0 out/startup.o
+                0x20000000                . = ORIGIN (ram)
 
-.data           0x0000000020000000        0x0
- .data          0x0000000020000000        0x0 out/startup.o
- .data          0x0000000020000000        0x0 out/project.o
- .data          0x0000000020000000        0x0 out/gpio.o
- .data          0x0000000020000000        0x0 out/spi.o
- .data          0x0000000020000000        0x0 out/system.o
- .data          0x0000000020000000        0x0 out/timer.o
- .data          0x0000000020000000        0x0 out/delay.o
- .data          0x0000000020000000        0x0 out/interrupts.o
- .data          0x0000000020000000        0x0 out/max7219.o
- .data          0x0000000020000000        0x0 out/spiSoft.o
- .data          0x0000000020000000        0x0 out/usart.o
- .data          0x0000000020000000        0x0 out/adc.o
+.data           0x20000000        0x0
+ .data          0x20000000        0x0 out/startup.o
+ .data          0x20000000        0x0 out/project.o
+ .data          0x20000000        0x0 out/gpio.o
+ .data          0x20000000        0x0 out/spi.o
+ .data          0x20000000        0x0 out/system.o
+ .data          0x20000000        0x0 out/timer.o
+ .data          0x20000000        0x0 out/delay.o
+ .data          0x20000000        0x0 out/interrupts.o
+ .data          0x20000000        0x0 out/max7219.o
+ .data          0x20000000        0x0 out/spiSoft.o
+ .data          0x20000000        0x0 out/usart.o
+ .data          0x20000000        0x0 out/adc.o
 OUTPUT(out/main.elf elf32-littlearm)
 
-.igot.plt       0x0000000020000000        0x0
- .igot.plt      0x0000000020000000        0x0 out/startup.o
+.igot.plt       0x20000000        0x0
+ .igot.plt      0x20000000        0x0 out/startup.o
 
-.bss            0x0000000020000000       0x11
- .bss           0x0000000020000000        0x0 out/startup.o
- .bss           0x0000000020000000        0x0 out/project.o
- COMMON         0x0000000020000000        0x8 out/project.o
-                0x0000000020000000                displayBuffer
- .bss           0x0000000020000008        0x0 out/gpio.o
- .bss           0x0000000020000008        0x0 out/spi.o
- .bss           0x0000000020000008        0x0 out/system.o
- .bss           0x0000000020000008        0x0 out/timer.o
- .bss           0x0000000020000008        0x0 out/delay.o
- .bss           0x0000000020000008        0x0 out/interrupts.o
- .bss           0x0000000020000008        0x0 out/max7219.o
- .bss           0x0000000020000008        0x0 out/spiSoft.o
- COMMON         0x0000000020000008        0x9 out/spiSoft.o
-                0x0000000020000008                gPinMOSI
-                0x0000000020000009                gPinMISO
-                0x000000002000000a                gPinSCK
-                0x000000002000000c                gSPIport
-                0x0000000020000010                gPinSS
- .bss           0x0000000020000011        0x0 out/usart.o
- .bss           0x0000000020000011        0x0 out/adc.o
+.bss            0x20000000       0x11
+ .bss           0x20000000        0x0 out/startup.o
+ .bss           0x20000000        0x0 out/project.o
+ COMMON         0x20000000        0x8 out/project.o
+                0x20000000                displayBuffer
+ .bss           0x20000008        0x0 out/gpio.o
+ .bss           0x20000008        0x0 out/spi.o
+ .bss           0x20000008        0x0 out/system.o
+ .bss           0x20000008        0x0 out/timer.o
+ .bss           0x20000008        0x0 out/delay.o
+ .bss           0x20000008        0x0 out/interrupts.o
+ .bss           0x20000008        0x0 out/max7219.o
+ .bss           0x20000008        0x0 out/spiSoft.o
+ COMMON         0x20000008        0x9 out/spiSoft.o
+                0x20000008                gPinMOSI
+                0x20000009                gPinMISO
+                0x2000000a                gPinSCK
+                0x2000000c                gSPIport
+                0x20000010                gPinSS
+ .bss           0x20000011        0x0 out/usart.o
+ .bss           0x20000011        0x0 out/adc.o
 
 .ARM.attributes
-                0x0000000000000000       0x2d
+                0x00000000       0x2d
  .ARM.attributes
-                0x0000000000000000       0x21 out/startup.o
+                0x00000000       0x21 out/startup.o
  .ARM.attributes
-                0x0000000000000021       0x31 out/project.o
+                0x00000021       0x31 out/project.o
  .ARM.attributes
-                0x0000000000000052       0x31 out/gpio.o
+                0x00000052       0x31 out/gpio.o
  .ARM.attributes
-                0x0000000000000083       0x31 out/spi.o
+                0x00000083       0x31 out/spi.o
  .ARM.attributes
-                0x00000000000000b4       0x31 out/system.o
+                0x000000b4       0x31 out/system.o
  .ARM.attributes
-                0x00000000000000e5       0x31 out/timer.o
+                0x000000e5       0x31 out/timer.o
  .ARM.attributes
-                0x0000000000000116       0x31 out/delay.o
+                0x00000116       0x31 out/delay.o
  .ARM.attributes
-                0x0000000000000147       0x31 out/interrupts.o
+                0x00000147       0x31 out/interrupts.o
  .ARM.attributes
-                0x0000000000000178       0x31 out/max7219.o
+                0x00000178       0x31 out/max7219.o
  .ARM.attributes
-                0x00000000000001a9       0x31 out/spiSoft.o
+                0x000001a9       0x31 out/spiSoft.o
  .ARM.attributes
-                0x00000000000001da       0x31 out/usart.o
+                0x000001da       0x31 out/usart.o
  .ARM.attributes
-                0x000000000000020b       0x31 out/adc.o
+                0x0000020b       0x31 out/adc.o
 
-.comment        0x0000000000000000       0x3b
- .comment       0x0000000000000000       0x3b out/project.o
-                                         0x3c (size before relaxing)
- .comment       0x000000000000003b       0x3c out/gpio.o
- .comment       0x000000000000003b       0x3c out/spi.o
- .comment       0x000000000000003b       0x3c out/system.o
- .comment       0x000000000000003b       0x3c out/timer.o
- .comment       0x000000000000003b       0x3c out/delay.o
- .comment       0x000000000000003b       0x3c out/interrupts.o
- .comment       0x000000000000003b       0x3c out/max7219.o
- .comment       0x000000000000003b       0x3c out/spiSoft.o
- .comment       0x000000000000003b       0x3c out/usart.o
- .comment       0x000000000000003b       0x3c out/adc.o
+.comment        0x00000000       0x7e
+ .comment       0x00000000       0x7e out/project.o
+                                 0x7f (size before relaxing)
+ .comment       0x0000007e       0x7f out/gpio.o
+ .comment       0x0000007e       0x7f out/spi.o
+ .comment       0x0000007e       0x7f out/system.o
+ .comment       0x0000007e       0x7f out/timer.o
+ .comment       0x0000007e       0x7f out/delay.o
+ .comment       0x0000007e       0x7f out/interrupts.o
+ .comment       0x0000007e       0x7f out/max7219.o
+ .comment       0x0000007e       0x7f out/spiSoft.o
+ .comment       0x0000007e       0x7f out/usart.o
+ .comment       0x0000007e       0x7f out/adc.o
 
-.note.GNU-stack
-                0x0000000000000000        0x0
- .note.GNU-stack
-                0x0000000000000000        0x0 out/project.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/gpio.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/spi.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/system.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/timer.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/delay.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/interrupts.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/max7219.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/spiSoft.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/usart.o
- .note.GNU-stack
-                0x0000000000000000        0x0 out/adc.o
+.debug_line     0x00000000      0x94e
+ .debug_line    0x00000000       0x6b out/startup.o
+ .debug_line    0x0000006b      0x104 out/project.o
+ .debug_line    0x0000016f       0xf3 out/gpio.o
+ .debug_line    0x00000262       0xb9 out/spi.o
+ .debug_line    0x0000031b       0xc1 out/system.o
+ .debug_line    0x000003dc      0x119 out/timer.o
+ .debug_line    0x000004f5       0xba out/delay.o
+ .debug_line    0x000005af        0x0 out/interrupts.o
+ .debug_line    0x000005af      0x12a out/max7219.o
+ .debug_line    0x000006d9       0xf1 out/spiSoft.o
+ .debug_line    0x000007ca       0xc1 out/usart.o
+ .debug_line    0x0000088b       0xc3 out/adc.o
 
-.debug_line     0x0000000000000000      0xa39
- .debug_line    0x0000000000000000       0x6b out/startup.o
- .debug_line    0x000000000000006b      0x1ef out/project.o
- .debug_line    0x000000000000025a       0xf3 out/gpio.o
- .debug_line    0x000000000000034d       0xb9 out/spi.o
- .debug_line    0x0000000000000406       0xc1 out/system.o
- .debug_line    0x00000000000004c7      0x119 out/timer.o
- .debug_line    0x00000000000005e0       0xba out/delay.o
- .debug_line    0x000000000000069a        0x0 out/interrupts.o
- .debug_line    0x000000000000069a      0x12a out/max7219.o
- .debug_line    0x00000000000007c4       0xf1 out/spiSoft.o
- .debug_line    0x00000000000008b5       0xc1 out/usart.o
- .debug_line    0x0000000000000976       0xc3 out/adc.o
+.debug_info     0x00000000     0x77be
+ .debug_info    0x00000000       0x26 out/startup.o
+ .debug_info    0x00000026     0x10e3 out/project.o
+ .debug_info    0x00001109      0xfe0 out/gpio.o
+ .debug_info    0x000020e9      0x5ee out/spi.o
+ .debug_info    0x000026d7      0xf62 out/system.o
+ .debug_info    0x00003639      0xe47 out/timer.o
+ .debug_info    0x00004480      0xd11 out/delay.o
+ .debug_info    0x00005191      0x7b6 out/max7219.o
+ .debug_info    0x00005947      0xf06 out/spiSoft.o
+ .debug_info    0x0000684d      0x9ab out/usart.o
+ .debug_info    0x000071f8      0x5c6 out/adc.o
 
-.debug_info     0x0000000000000000     0x96e4
- .debug_info    0x0000000000000000       0x93 out/startup.o
- .debug_info    0x0000000000000093     0x2faf out/project.o
- .debug_info    0x0000000000003042      0xfd6 out/gpio.o
- .debug_info    0x0000000000004018      0x5f2 out/spi.o
- .debug_info    0x000000000000460a      0xf5b out/system.o
- .debug_info    0x0000000000005565      0xe43 out/timer.o
- .debug_info    0x00000000000063a8      0xd07 out/delay.o
- .debug_info    0x00000000000070af      0x7bb out/max7219.o
- .debug_info    0x000000000000786a      0xf09 out/spiSoft.o
- .debug_info    0x0000000000008773      0x9af out/usart.o
- .debug_info    0x0000000000009122      0x5c2 out/adc.o
+.debug_abbrev   0x00000000      0xd9c
+ .debug_abbrev  0x00000000       0x14 out/startup.o
+ .debug_abbrev  0x00000014      0x1f5 out/project.o
+ .debug_abbrev  0x00000209      0x155 out/gpio.o
+ .debug_abbrev  0x0000035e       0xfb out/spi.o
+ .debug_abbrev  0x00000459      0x140 out/system.o
+ .debug_abbrev  0x00000599      0x1b8 out/timer.o
+ .debug_abbrev  0x00000751      0x15a out/delay.o
+ .debug_abbrev  0x000008ab      0x168 out/max7219.o
+ .debug_abbrev  0x00000a13      0x16d out/spiSoft.o
+ .debug_abbrev  0x00000b80      0x110 out/usart.o
+ .debug_abbrev  0x00000c90      0x10c out/adc.o
 
-.debug_abbrev   0x0000000000000000      0xd5f
- .debug_abbrev  0x0000000000000000       0x14 out/startup.o
- .debug_abbrev  0x0000000000000014      0x240 out/project.o
- .debug_abbrev  0x0000000000000254      0x153 out/gpio.o
- .debug_abbrev  0x00000000000003a7       0xe3 out/spi.o
- .debug_abbrev  0x000000000000048a      0x126 out/system.o
- .debug_abbrev  0x00000000000005b0      0x19e out/timer.o
- .debug_abbrev  0x000000000000074e      0x156 out/delay.o
- .debug_abbrev  0x00000000000008a4      0x166 out/max7219.o
- .debug_abbrev  0x0000000000000a0a      0x153 out/spiSoft.o
- .debug_abbrev  0x0000000000000b5d       0xf8 out/usart.o
- .debug_abbrev  0x0000000000000c55      0x10a out/adc.o
+.debug_aranges  0x00000000      0x160
+ .debug_aranges
+                0x00000000       0x20 out/startup.o
+ .debug_aranges
+                0x00000020       0x20 out/project.o
+ .debug_aranges
+                0x00000040       0x20 out/gpio.o
+ .debug_aranges
+                0x00000060       0x20 out/spi.o
+ .debug_aranges
+                0x00000080       0x20 out/system.o
+ .debug_aranges
+                0x000000a0       0x20 out/timer.o
+ .debug_aranges
+                0x000000c0       0x20 out/delay.o
+ .debug_aranges
+                0x000000e0       0x20 out/max7219.o
+ .debug_aranges
+                0x00000100       0x20 out/spiSoft.o
+ .debug_aranges
+                0x00000120       0x20 out/usart.o
+ .debug_aranges
+                0x00000140       0x20 out/adc.o
 
-.debug_aranges  0x0000000000000000      0x160
- .debug_aranges
-                0x0000000000000000       0x20 out/startup.o
- .debug_aranges
-                0x0000000000000020       0x20 out/project.o
- .debug_aranges
-                0x0000000000000040       0x20 out/gpio.o
- .debug_aranges
-                0x0000000000000060       0x20 out/spi.o
- .debug_aranges
-                0x0000000000000080       0x20 out/system.o
- .debug_aranges
-                0x00000000000000a0       0x20 out/timer.o
- .debug_aranges
-                0x00000000000000c0       0x20 out/delay.o
- .debug_aranges
-                0x00000000000000e0       0x20 out/max7219.o
- .debug_aranges
-                0x0000000000000100       0x20 out/spiSoft.o
- .debug_aranges
-                0x0000000000000120       0x20 out/usart.o
- .debug_aranges
-                0x0000000000000140       0x20 out/adc.o
+.debug_str      0x00000000     0x1be1
+ .debug_str     0x00000000       0x77 out/startup.o
+ .debug_str     0x00000077      0x818 out/project.o
+                                0x881 (size before relaxing)
+ .debug_str     0x0000088f       0xf8 out/gpio.o
+                                0x6bc (size before relaxing)
+ .debug_str     0x00000987      0x1b9 out/spi.o
+                                0x292 (size before relaxing)
+ .debug_str     0x00000b40      0x5e8 out/system.o
+                                0x91e (size before relaxing)
+ .debug_str     0x00001128      0x3c4 out/timer.o
+                                0x4ba (size before relaxing)
+ .debug_str     0x000014ec       0x43 out/delay.o
+                                0x492 (size before relaxing)
+ .debug_str     0x0000152f       0x3c out/interrupts.o
+                                 0xcf (size before relaxing)
+ .debug_str     0x0000156b      0x1c5 out/max7219.o
+                                0x40f (size before relaxing)
+ .debug_str     0x00001730       0xb0 out/spiSoft.o
+                                0x632 (size before relaxing)
+ .debug_str     0x000017e0      0x267 out/usart.o
+                                0x35c (size before relaxing)
+ .debug_str     0x00001a47      0x19a out/adc.o
+                                0x26f (size before relaxing)
 
-.debug_str      0x0000000000000000     0x1bee
- .debug_str     0x0000000000000000     0x118f out/project.o
-                                       0x1271 (size before relaxing)
- .debug_str     0x000000000000118f       0xf8 out/gpio.o
-                                        0x6bb (size before relaxing)
- .debug_str     0x0000000000001287       0x62 out/spi.o
-                                        0x29f (size before relaxing)
- .debug_str     0x00000000000012e9       0xcc out/system.o
-                                        0x91d (size before relaxing)
- .debug_str     0x00000000000013b5      0x144 out/timer.o
-                                        0x4b9 (size before relaxing)
- .debug_str     0x00000000000014f9       0x43 out/delay.o
-                                        0x491 (size before relaxing)
- .debug_str     0x000000000000153c       0x3c out/interrupts.o
-                                         0xdc (size before relaxing)
- .debug_str     0x0000000000001578      0x1c5 out/max7219.o
-                                        0x425 (size before relaxing)
- .debug_str     0x000000000000173d       0xb0 out/spiSoft.o
-                                        0x63f (size before relaxing)
- .debug_str     0x00000000000017ed      0x267 out/usart.o
-                                        0x369 (size before relaxing)
- .debug_str     0x0000000000001a54      0x19a out/adc.o
-                                        0x277 (size before relaxing)
-
-.debug_frame    0x0000000000000000      0x69c
- .debug_frame   0x0000000000000000      0x15c out/project.o
- .debug_frame   0x000000000000015c       0xb0 out/gpio.o
- .debug_frame   0x000000000000020c       0x50 out/spi.o
- .debug_frame   0x000000000000025c       0x8c out/system.o
- .debug_frame   0x00000000000002e8      0x110 out/timer.o
- .debug_frame   0x00000000000003f8       0x30 out/delay.o
- .debug_frame   0x0000000000000428      0x148 out/max7219.o
- .debug_frame   0x0000000000000570       0x70 out/spiSoft.o
- .debug_frame   0x00000000000005e0       0x70 out/usart.o
- .debug_frame   0x0000000000000650       0x4c out/adc.o
+.debug_frame    0x00000000      0x648
+ .debug_frame   0x00000000      0x108 out/project.o
+ .debug_frame   0x00000108       0xb0 out/gpio.o
+ .debug_frame   0x000001b8       0x50 out/spi.o
+ .debug_frame   0x00000208       0x8c out/system.o
+ .debug_frame   0x00000294      0x110 out/timer.o
+ .debug_frame   0x000003a4       0x30 out/delay.o
+ .debug_frame   0x000003d4      0x148 out/max7219.o
+ .debug_frame   0x0000051c       0x70 out/spiSoft.o
+ .debug_frame   0x0000058c       0x70 out/usart.o
+ .debug_frame   0x000005fc       0x4c out/adc.o
 
 Cross Reference Table
 
@@ -365,13 +338,9 @@ gSPIport                                          out/spiSoft.o
 getTimerValue                                     out/timer.o
                                                   out/delay.o
 initADC                                           out/project.o
-initBoardPWM                                      out/project.o
 initMAX7219Display                                out/max7219.o
                                                   out/project.o
-initPWMrgbLED                                     out/project.o
 initSPIMaster                                     out/spi.o
-                                                  out/project.o
-initSegmentDisplayHardwareSPI                     out/project.o
 initSegmentDisplaySoftwareSPI                     out/project.o
 initUSART2                                        out/project.o
 intToString                                       out/project.o
@@ -390,7 +359,6 @@ setDecodeMode                                     out/max7219.o
 setIntensity                                      out/max7219.o
 setPUPD                                           out/gpio.o
 setPWMDuty                                        out/timer.o
-                                                  out/project.o
 setPinAlternateFunction                           out/gpio.o
                                                   out/project.o
 setPinMode                                        out/gpio.o
@@ -404,9 +372,7 @@ setTimerPrescaler                                 out/timer.o
 setupADC                                          out/adc.o
                                                   out/project.o
 setupPWMConfiguration                             out/timer.o
-                                                  out/project.o
 setupPWMConfigurationOnboard                      out/timer.o
-                                                  out/project.o
 setupUSART                                        out/usart.o
                                                   out/project.o
 spiSoftEnableSlave                                out/spiSoft.o
@@ -420,7 +386,6 @@ startTimer                                        out/timer.o
 stopTimer                                         out/timer.o
                                                   out/delay.o
 txUSARTch                                         out/usart.o
-                                                  out/project.o
 updateDisplayBuffer                               out/project.o
 writePin                                          out/gpio.o
                                                   out/spiSoft.o
